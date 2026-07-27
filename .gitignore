@@ -1,15 +1,68 @@
+# Python bytecode and caches
 __pycache__/
+*.py[cod]
+*$py.class
 .pytest_cache/
-*.pyc
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Virtual environments and local Python tooling
+.venv/
+venv/
+env/
+.python-version.local
+pip-wheel-metadata/
+*.egg-info/
+build/
+dist/
+
+# Local configuration and secrets
 .env
-logs/*.jsonl
-reports/*.csv
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Runtime pipeline data
 incoming/*
 rejected/*
 archive/*
+logs/*
+reports/*
 !incoming/.gitkeep
 !rejected/.gitkeep
 !archive/.gitkeep
 !logs/.gitkeep
 !reports/.gitkeep
 
+# Generated Excel files and Office lock files
+*.xlsm
+*.xlsx
+~$*.xls*
+
+# IDE and editor settings
+.idea/
+.vscode/
+*.code-workspace
+*.swp
+*.swo
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local Docker overrides and exported data
+docker-compose.override.yml
+*.tar
+*.dump
+*.dmp
+
+# Test and diagnostic output
+test-results/
+*.log
+*.tmp
