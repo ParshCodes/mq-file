@@ -1,0 +1,15 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+logs/*.jsonl
+reports/*.csv
+incoming/*
+rejected/*
+archive/*
+!incoming/.gitkeep
+!rejected/.gitkeep
+!archive/.gitkeep
+!logs/.gitkeep
+!reports/.gitkeep
+

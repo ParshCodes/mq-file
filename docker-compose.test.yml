@@ -1,0 +1,5 @@
+services:
+  consumer:
+    environment:
+      PROCESSING_FAILURE_RATE: "0"
+

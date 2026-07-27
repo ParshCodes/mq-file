@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order>
+  <order_id>ORD-XML-001</order_id>
+  <customer><id>CUST-101</id><name>Grace Hopper</name><email>grace@example.test</email></customer>
+  <items><item><sku>WIDGET-B</sku><quantity>3</quantity><unit_price>10.00</unit_price></item></items>
+  <total>30.00</total>
+  <timestamp>2026-01-15T10:31:00Z</timestamp>
+</order>
+

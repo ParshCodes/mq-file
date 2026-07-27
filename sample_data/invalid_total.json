@@ -1,0 +1,8 @@
+{
+  "order_id": "ORD-BAD-TOTAL",
+  "customer": {"id": "CUST-103", "name": "Wrong Total", "email": "wrong@example.test"},
+  "items": [{"sku": "WIDGET-A", "quantity": 2, "unit_price": 10.00}],
+  "total": 999.00,
+  "timestamp": "2026-01-15T10:32:00Z"
+}
+

@@ -1,0 +1,11 @@
+{
+  "order_id": "ORD-JSON-001",
+  "customer": {"id": "CUST-100", "name": "Ada Lovelace", "email": "ada@example.test"},
+  "items": [
+    {"sku": "WIDGET-A", "quantity": 2, "unit_price": 12.50},
+    {"sku": "GADGET-C", "quantity": 1, "unit_price": 25.00}
+  ],
+  "total": 50.00,
+  "timestamp": "2026-01-15T10:30:00Z"
+}
+

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order>
+  <order_id>BAD-ID</order_id>
+  <customer><id>CUST-102</id><name>Invalid Order</name><email>x@example.test</email></customer>
+  <items><item><sku>WIDGET-A</sku><quantity>0</quantity><unit_price>5.00</unit_price></item></items>
+  <total>5.00</total><timestamp>not-a-date</timestamp>
+</order>
+

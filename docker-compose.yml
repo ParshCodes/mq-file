@@ -1,0 +1,77 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-mq_user}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-mq_password}
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  oracle:
+    image: gvenzl/oracle-free:23-slim-faststart
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD:-HarnessPassword1}
+      APP_USER: mq_user
+      APP_USER_PASSWORD: mq_password
+    ports:
+      - "1521:1521"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+      - ./sql/init.sql:/container-entrypoint-initdb.d/001-init.sql:ro
+
+  producer:
+    build: .
+    command: ["python", "-m", "mq_harness.producer"]
+    environment: &app-env
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: ${RABBITMQ_USER:-mq_user}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-mq_password}
+      ORACLE_USER: mq_user
+      ORACLE_PASSWORD: mq_password
+      ORACLE_DSN: oracle:1521/FREEPDB1
+      LOG_FILE: /data/logs/pipeline.jsonl
+      SCHEMA_DIR: /app/schemas
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      oracle:
+        condition: service_healthy
+    volumes:
+      - ./incoming:/data/incoming
+      - ./rejected:/data/rejected
+      - ./archive:/data/archive
+      - ./logs:/data/logs
+    restart: unless-stopped
+
+  consumer:
+    build: .
+    command: ["python", "-m", "mq_harness.consumer"]
+    environment:
+      <<: *app-env
+      PROCESSING_FAILURE_RATE: ${PROCESSING_FAILURE_RATE:-0.05}
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      oracle:
+        condition: service_healthy
+    volumes:
+      - ./logs:/data/logs
+    restart: unless-stopped
+
+volumes:
+  rabbitmq_data:
+  oracle_data:

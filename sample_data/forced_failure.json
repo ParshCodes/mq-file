@@ -1,0 +1,8 @@
+{
+  "order_id": "ORD-FORCED-FAIL",
+  "customer": {"id": "CUST-104", "name": "Failure Injection", "email": "failure@example.test"},
+  "items": [{"sku": "WIDGET-A", "quantity": 1, "unit_price": 10.00}],
+  "total": 10.00,
+  "timestamp": "2026-01-15T10:33:00Z",
+  "force_failure": true
+}

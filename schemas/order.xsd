@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="order">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="order_id" type="OrderId"/>
+        <xs:element name="customer">
+          <xs:complexType><xs:sequence>
+            <xs:element name="id" type="NonEmpty"/>
+            <xs:element name="name" type="NonEmpty"/>
+            <xs:element name="email" type="NonEmpty"/>
+          </xs:sequence></xs:complexType>
+        </xs:element>
+        <xs:element name="items">
+          <xs:complexType><xs:sequence>
+            <xs:element name="item" minOccurs="1" maxOccurs="unbounded">
+              <xs:complexType><xs:sequence>
+                <xs:element name="sku" type="NonEmpty"/>
+                <xs:element name="quantity" type="xs:positiveInteger"/>
+                <xs:element name="unit_price" type="PositiveMoney"/>
+              </xs:sequence></xs:complexType>
+            </xs:element>
+          </xs:sequence></xs:complexType>
+        </xs:element>
+        <xs:element name="total" type="xs:decimal"/>
+        <xs:element name="timestamp" type="xs:dateTime"/>
+        <xs:element name="force_failure" type="xs:boolean" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="NonEmpty"><xs:restriction base="xs:string"><xs:minLength value="1"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="OrderId"><xs:restriction base="xs:string"><xs:pattern value="ORD-[A-Za-z0-9-]{3,40}"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="PositiveMoney"><xs:restriction base="xs:decimal"><xs:minExclusive value="0"/></xs:restriction></xs:simpleType>
+</xs:schema>
